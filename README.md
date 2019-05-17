@@ -23,12 +23,12 @@ If there are no errors the program will create a  PNG image called:
 Boxified.png
 ```
 
-The image is 1920 pixels across and 1080 tall.  Personally I think it makes a
-nice desktop wallpaper.
+The image is 1920 pixels across and 1080 tall.  This image is in the repository.
 
-This image is also in the repository - it makes a nice desktop wallpaper.
+Personally I think it makes a nice desktop wallpaper.
 
-The `boxified.py` program is 40 odd lines long including comments and blank lines.
+The `boxified.py` program that creates this image is only 40 odd lines long
+including comments and blank lines.
 
 # More detail for programmers
 
