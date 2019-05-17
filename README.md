@@ -83,7 +83,7 @@ The method called `solidrectangle` creates a solid rectangle - here is an exampl
 mpng.solidrectangle(25, 10, 50, 30, 192)
 
 This creates a solid rectangle 50 pixels wide by 30 pixels deep of pixel value 192 (a nice
-dark grey).  The left hand corner of the box is at pixel coordinates 25, 10.
+dark grey).  The top left hand corner of the rectangle is at pixel coordinates 25,10.
 
 To write the PNG image to a file use the `write` method.  For example:
 
