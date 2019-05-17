@@ -78,11 +78,11 @@ pixels deep:
 + 0,49 is the bottom left hand corner
 + 99,49 is the bottom right hand corner
 
-The is a method called `box` - here is an example use:
+The method called `solidrectangle` creates a solid rectangle - here is an example use:
 
-mpng.box(25, 10, 50, 30, 192)
+mpng.solidrectangle(25, 10, 50, 30, 192)
 
-This creates a solid box 50 pixels wide by 30 pixels deep of pixel valu 192 (a nice
+This creates a solid rectangle 50 pixels wide by 30 pixels deep of pixel value 192 (a nice
 dark grey).  The left hand corner of the box is at pixel coordinates 25, 10.
 
 To write the PNG image to a file use the `write` method.  For example:
@@ -99,7 +99,7 @@ easy to alter and expand on so more interesting images can be created.
 ## Other methods
 
 There are other methods available.  Rather than document all of them here
-just go and look at the `monopng.py` file.  However, some worth mentioning now:
+just go and look at the `monopng.py` file.  However, some are worth mentioning now:
 
 ### rectangle
 
@@ -140,8 +140,8 @@ Good question.  Here are my answers:
 The bulk of the work is done by the `zlib` library - in particular the `compress` method.
 
 There is a helper function (I think that is the correct name) called `dword` for
-turning an integer into a series of 4 bytes.  It works but I am not sure if it
-is coded in the most elegant or Pythonic way.
+turning an integer into a series of 4 bytes.  It works but I am not sure if I
+have coded it in the most elegant or Pythonic way.
 
 --------------------------------
 
