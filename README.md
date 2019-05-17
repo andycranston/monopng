@@ -23,16 +23,16 @@ If there are no errors the program will create a  PNG image called:
 Boxified.png
 ```
 
-The image is 1920 pixels across and 1080 tall.  This image is in the repository.
+The image is 1920 pixels across and 1080 tall.  The image is in the repository.
 
-Personally I think it makes a nice desktop wallpaper.
+Personally I think it makes a nice desktop wallpaper :-]
 
 The `boxified.py` program that creates this image is only 40 odd lines long
 including comments and blank lines.
 
 # More detail for programmers
 
-The `monopng` Python class is defined on a file called `monopng.py`.  Place this file
+The `monopng` Python class is defined in the file called `monopng.py`.  Place this file
 in a directory where it can be found by standard import searches.  Then all that is
 required to import it is:
 
@@ -52,9 +52,9 @@ the number of pixels high the image will be.
 By default the image will be filled with pixels of value 0.
 
 Valid pixel values are between 0 and 255 inclusive.  A value of 0 is solid black, a value
-of 255 is white and values inbetween are varying shades of grey.
+of 255 is white and values inbetween are varying shades of gray.
 
-The is a method called `fill` which fills an entire image with pixels of a specified
+The method called `fill` fills an entire image with pixels of a specified
 value.  For example to fill the `mpng` image created above with white pixels use:
 
 ```
