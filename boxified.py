@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 #
-# @(!--#) @(#) boxified.py, version 001, 09-may-2019
+# @(!--#) @(#) boxified.py, version 002, 18-may-2019
 #
 # create the "Boxified.png" wallpaper
 # 
@@ -28,11 +28,11 @@ widerange = WIDE - (3 * BOXSIZE)
 tallrange = TALL - (3 * BOXSIZE)
 
 for i in range(0, NUMBOXES):
-    mpng.box(BOXSIZE + random.randrange(0, widerange),
-             BOXSIZE + random.randrange(0, tallrange),
-             BOXSIZE,
-             BOXSIZE,
-             64 + random.randrange(0, 128))
+    mpng.solidrectangle(BOXSIZE + random.randrange(0, widerange),
+                        BOXSIZE + random.randrange(0, tallrange),
+                        BOXSIZE,
+                        BOXSIZE,
+                        64 + random.randrange(0, 128))
     
 mpng.write('Boxified.png')
 
