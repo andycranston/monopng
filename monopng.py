@@ -51,7 +51,7 @@ class MonoPNG:
         for i in range(0, llength):
             self.plot(x, y + i, brightness)
 
-    def box(self, x, y, wide, high, brightness):
+    def solidrectangle(self, x, y, wide, high, brightness):
         for i in range(0, wide):
             for j in range(0, high):
                 self.plot(x+i, y+j, brightness)
