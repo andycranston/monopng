@@ -17,7 +17,7 @@ Run the `boxified.py` Python program as follows:
 python boxified.py
 ```
 
-If there are no errors the program will create a  PNG image called:
+If there are no errors the program will create a PNG image called:
 
 ```
 Boxified.png
@@ -25,7 +25,7 @@ Boxified.png
 
 The image is 1920 pixels across and 1080 tall.  The image is in the repository.
 
-Personally I think it makes a nice desktop wallpaper :-]
+Personally I think it makes a nice desktop wallpaper.
 
 The `boxified.py` program that creates this image is only 40 odd lines long
 including comments and blank lines.
@@ -67,7 +67,7 @@ To set a specific pixel to a specific value use the `plot` method.  For example:
 mpng.plot(10, 20, 128)
 ```
 
-will set the pixel located 11 pixels across from the left veritical edge of the image
+will set the pixel located 11 pixels across from the left vertical edge of the image
 and 21 pixels down from the top horizontal edge to a pixel value of 128.
 
 Pixel coordinates are zero based.  That means that for an image 100 pixels wide and 50
@@ -80,10 +80,12 @@ pixels deep:
 
 The method called `solidrectangle` creates a solid rectangle - here is an example use:
 
+```
 mpng.solidrectangle(25, 10, 50, 30, 192)
+```
 
 This creates a solid rectangle 50 pixels wide by 30 pixels deep of pixel value 192 (a nice
-dark grey).  The top left hand corner of the rectangle is at pixel coordinates 25,10.
+dark gray).  The top left hand corner of the rectangle is at pixel coordinates 25,10.
 
 To write the PNG image to a file use the `write` method.  For example:
 
@@ -132,7 +134,7 @@ bottom edge of the image for llength pixels.
 Good question.  Here are my answers:
 
 + I liked the challenge of doing this myself.
-+ Almost no bloat - the first working version of `monopng.py` is no more that 140 lines of code.
++ Very compact - the first working version of `monopng.py` is no more that 140 lines of code.
 + Easy to learn.
 
 # Implementation details
