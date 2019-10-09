@@ -1,5 +1,5 @@
 #
-# @(!--#) @(#) monopng.py, version 004, 09-may-2019
+# @(!--#) @(#) monopng.py, version 007, 17-september-2019
 #
 # Python class to create monochrome PNG files
 #
@@ -20,6 +20,9 @@ class MonoPNG:
         b3 = (i & 0xFF000000) // 0x01000000
     
         return bytes([b3, b2, b1, b0])
+
+    def dwordreverse(self, ba):
+        return (ba[0] << 24) + (ba[1] << 16) + (ba[2] << 8) + ba[3]
 
     def fill(self, brightness):
         for x in range(0, self.wide):
@@ -134,6 +137,97 @@ class MonoPNG:
         f.flush()
         f.close()
     
+    def read(self, filename):
+        f = open(filename, "rb")
+
+        ba = bytearray(f.read())
+
+        f.close()
+
+        pos = 0
+
+        if pos + 8 > len(ba):
+            return False
+
+        pnghdr = bytearray(8)
+
+        pnghdr[0] = 0x89
+        pnghdr[1] = ord('P')
+        pnghdr[2] = ord('N')
+        pnghdr[3] = ord('G')
+        pnghdr[4] = 13
+        pnghdr[5] = 10
+        pnghdr[6] = 26
+        pnghdr[7] = 10
+
+        if pnghdr != ba[pos:pos+8]:
+            return False
+
+        ### print('PNG header present')
+
+        pos += 8
+
+        if pos + 25 > len(ba):
+            return False
+
+        sizeihdr = self.dwordreverse(ba[pos:pos+4])
+
+        if sizeihdr != 13:
+            return False
+
+        ihdrtext = bytearray(4)
+        ihdrtext[0] = ord('I')
+        ihdrtext[1] = ord('H')
+        ihdrtext[2] = ord('D')
+        ihdrtext[3] = ord('R')
+
+        if ihdrtext != ba[pos+4:pos+8]:
+            return False
+
+        ### print('IHDR found')
+
+        if ba[pos+16] != 8:
+            return False
+        if ba[pos+17] != 0:
+            return False
+        if ba[pos+18] != 0:
+            return False
+        if ba[pos+19] != 0:
+            return False
+        if ba[pos+20] != 0:
+            return False
+
+        ### print('IHDR detail ok')
+
+        self.wide = self.dwordreverse(ba[pos+8:pos+12])
+        self.high = self.dwordreverse(ba[pos+12:pos+16])
+
+        pos += 25
+
+        if pos + 12 > len(ba):
+            return False
+
+        sizeidat = self.dwordreverse(ba[pos:pos+4])
+
+        idattext = bytearray(4)
+        idattext[0] = ord('I')
+        idattext[1] = ord('D')
+        idattext[2] = ord('A')
+        idattext[3] = ord('T')
+
+        if idattext != ba[pos+4:pos+8]:
+            return False
+
+        ### print(pos + 8, pos + 8 + sizeidat - 1)
+
+        self.bitmap = zlib.decompress(ba[pos+8:pos+8+sizeidat])
+
+        ### print(len(self.bitmap))
+        if len(self.bitmap) != (self.wide + 1) * self.high:
+            return False
+
+        return True
+
 ############################################################
 
 # end of file
