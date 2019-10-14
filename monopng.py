@@ -1,5 +1,5 @@
 #
-# @(!--#) @(#) monopng.py, version 007, 17-september-2019
+# @(!--#) @(#) monopng.py, version 009, 14-october-2019
 #
 # Python class to create monochrome PNG files
 #
@@ -12,6 +12,7 @@ class MonoPNG:
         self.wide = wide
         self.high = high
         self.bitmap = bytearray((wide + 1) * high)
+
 
     def dword(self, i):
         b0 = (i & 0x000000FF) // 0x00000001
@@ -39,6 +40,20 @@ class MonoPNG:
         else:
             brightness = 0
         return brightness
+
+    def fromlist(self, list, foreground, background):
+        self.wide = len(list[0])
+        self.high = len(list)
+        self.bitmap = bytearray((self.wide + 1) * self.high)
+        for y in range(0, self.high):
+            row = list[y]
+            for x in range(0, self.wide):
+                c = row[x]
+                if (c == '1') or (c == '#'):
+                    brightness = foreground
+                else:
+                    brightness = background
+                self.plot(x, y, brightness)
 
     def deltaline(self, x, y, xdelta, ydelta, llength, brightness):
         for i in range(0, llength):
