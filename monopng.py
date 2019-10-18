@@ -1,5 +1,5 @@
 #
-# @(!--#) @(#) monopng.py, version 009, 14-october-2019
+# @(!--#) @(#) monopng.py, version 010, 18-october-2019
 #
 # Python class to create monochrome PNG files
 #
@@ -25,6 +25,12 @@ class MonoPNG:
     def dwordreverse(self, ba):
         return (ba[0] << 24) + (ba[1] << 16) + (ba[2] << 8) + ba[3]
 
+    def width(self):
+        return self.wide
+
+    def height(self):
+        return self.high
+
     def fill(self, brightness):
         for x in range(0, self.wide):
             for y in range(0, self.high):
@@ -32,7 +38,7 @@ class MonoPNG:
 
     def plot(self, x, y, brightness):
         if ((x >= 0) and (x < self.wide) and (y >= 0) and (y < self.high)):
-            self.bitmap[(y * (self.wide + 1)) + (x + 1)] = brightness & 0xFF
+            self.bitmap[(y * (self.wide + 1)) + (x + 1)] = (brightness & 0xFF)
 
     def peek(self, x, y):
         if ((x >= 0) and (x < self.wide) and (y >= 0) and (y < self.high)):
@@ -153,7 +159,10 @@ class MonoPNG:
         f.close()
     
     def read(self, filename):
-        f = open(filename, "rb")
+        try:
+            f = open(filename, "rb")
+        except FileNotFoundError:
+            return False
 
         ba = bytearray(f.read())
 
