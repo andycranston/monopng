@@ -55,7 +55,7 @@ class MonoPNG:
             row = list[y]
             for x in range(0, self.wide):
                 c = row[x]
-                if (c == '1') or (c == '#'):
+                if (c == '1') or (c == '#') or (c == '+'):
                     brightness = foreground
                 else:
                     brightness = background
@@ -96,6 +96,13 @@ class MonoPNG:
         for i in range(0, overlay.wide):
             for j in range(0, overlay.high):
                 self.plot(x+i, y+j, overlay.peek(i, j))
+
+    def overlay(self, overlay, x, y):
+        for i in range(0, overlay.wide):
+            for j in range(0, overlay.high):
+                pixel = overlay.peek(i, j)
+                if pixel < 128:
+                    self.plot(x+i, y+j, overlay.peek(i, j))
 
     def print(self):
         print("Wide:{}   High:{}".format(self.wide, self.high))
@@ -244,11 +251,18 @@ class MonoPNG:
 
         ### print(pos + 8, pos + 8 + sizeidat - 1)
 
-        self.bitmap = zlib.decompress(ba[pos+8:pos+8+sizeidat])
+        bitmap = zlib.decompress(ba[pos+8:pos+8+sizeidat])
 
-        ### print(len(self.bitmap))
-        if len(self.bitmap) != (self.wide + 1) * self.high:
+        ### print(len(bitmap))
+        if len(bitmap) != (self.wide + 1) * self.high:
             return False
+
+        self.bitmap = bytearray(len(bitmap))
+
+        i = 0
+        while i < len(bitmap):
+            self.bitmap[i] = bitmap[i]
+            i += 1
 
         return True
 
