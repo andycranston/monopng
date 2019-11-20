@@ -1,5 +1,5 @@
 #
-# @(!--#) @(#) monopng.py, version 010, 18-october-2019
+# @(!--#) @(#) monopng.py, version 011, 14-november-2019
 #
 # Python class to create monochrome PNG files
 #
@@ -103,6 +103,40 @@ class MonoPNG:
                 pixel = overlay.peek(i, j)
                 if pixel < 128:
                     self.plot(x+i, y+j, overlay.peek(i, j))
+
+    def double(self):
+        double = MonoPNG((self.wide * 2) - 1, (self.high * 2) - 1)
+    
+        ### double.fill(128)
+    
+        for x in range(0, self.wide):
+            for y in range(0, self.high):
+                pixel = self.peek(x, y)
+    
+                double.plot(x * 2, y * 2, pixel)
+    
+        for x in range(0, (self.wide * 2) - 1, 2):
+            for y in range(0, (self.high * 2) - 1, 2):
+                pixel1 = double.peek(x, y)
+                pixel2 = double.peek(x + 2, y)
+                double.plot(x + 1, y, (pixel1 + pixel2) // 2)
+    
+                pixel1 = double.peek(x, y)
+                pixel2 = double.peek(x, y + 2)
+                double.plot(x, y + 1, (pixel1 + pixel2) // 2)
+    
+        for x in range(0, (self.wide * 2) - 1, 2):
+            for y in range(0, (self.high * 2) - 1, 2):
+                pixel1 = double.peek(x + 1 , y    )
+                pixel2 = double.peek(x     , y + 1)
+                pixel3 = double.peek(x + 2 , y + 1)
+                pixel4 = double.peek(x + 1 , y + 2)
+    
+                double.plot(x + 1, y + 1, (pixel1 + pixel2 + pixel3 + pixel4) // 4)
+
+        self.high = double.high
+        self.wide = double.wide
+        self.bitmap = double.bitmap
 
     def print(self):
         print("Wide:{}   High:{}".format(self.wide, self.high))
