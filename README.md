@@ -43,7 +43,7 @@ import monopng
 To create an instance of the `monopng` class use:
 
 ```
-mpng = monopng.MonoPng(wide, tall)
+mpng = monopng.MonoPNG(wide, tall)
 ```
 
 where `wide` is the number of pixels across the image will be and `tall` is
@@ -133,9 +133,9 @@ bottom edge of the image for llength pixels.
 
 Good question.  Here are my answers:
 
-+ I liked the challenge of doing this myself.
-+ Very compact - the first working version of `monopng.py` is no more that 140 lines of code.
-+ Easy to learn.
++ I liked the challenge of doing this myself
++ Very compact - the first working version of `monopng.py` was no more that 140 lines of code
++ Easy to learn
 
 # Implementation details
 
@@ -144,6 +144,12 @@ The bulk of the work is done by the `zlib` library - in particular the `compress
 There is a helper function (I think that is the correct name) called `dword` for
 turning an integer into a series of 4 bytes.  It works but I am not sure if I
 have coded it in the most elegant or Pythonic way.
+
+# Limitations
+
+It is not fast by comparison to other libraries.
+
+For large images it uses large amounts of memory.
 
 --------------------------------
 
